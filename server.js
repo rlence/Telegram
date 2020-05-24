@@ -10,13 +10,11 @@ const router = require('./network/routes');
 
 //utilizando herramientas
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:false}));
+//app.use(bodyParser.urlencoded({extended:false}));
 
 /** de esta manera llamamos al archivo routesy el pasamos el server como parametro */
 router(app);
 app.use('/app', express.static('public'));
-
-
 
 //servidr levantado y escuchando
 app.listen(8080, ()=>{
