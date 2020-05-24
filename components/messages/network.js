@@ -20,4 +20,14 @@ router.post('/', (req, res) => {
 
 })
 
+//patch modificacion parcial
+router.patch('/:id', (req, res) => {
+
+    console.log(req.params.id);
+    controler.updateMessage(req.params.id, req.body.message)
+    .then(data => response.success( req, res, data, 200 ))
+    .catch(err => response.error(req, res, 'Error Interno', 500, err ));
+
+})
+
 module.exports = router;
