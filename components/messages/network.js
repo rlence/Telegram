@@ -5,12 +5,11 @@ const router = express.Router();
 const response = require('../../network/response');
 const controler = require('./controler');
 
-router.get('/hola', (req,res)=>{
-    console.log(req.headers);
-    res.header({
-        "mi-cabecera":"url todo loca"
-    })
-    response.success(req,res, 'todo bien en el get', 201);
+router.get('/', (req,res)=>{
+
+    controler.getMessages()
+    .then(messegelist => response.success( req, res,messegelist, 200 ))
+    .catch(err => response.error(req, res, 'Unexpected Error', 500, err ))
 });
 
 router.post('/', (req, res) => {
