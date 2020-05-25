@@ -1,9 +1,16 @@
 const express = require('express');
+const multer = require('multer') //transmision de archivos
 const router = express.Router();
 
 //importando modulos locales de respuesta
 const response = require('../../network/response');
 const controler = require('./controler');
+
+const upload = multer({
+    dest:'public/files/',
+
+})
+
 
 router.get('/', (req,res)=>{
     const filterMessages = req.query.user || null;
@@ -12,9 +19,9 @@ router.get('/', (req,res)=>{
     .catch(err => response.error(req, res, 'Unexpected Error', 500, err ))
 });
 
-router.post('/', (req, res) => {
+router.post('/', upload.single('file'), (req, res) => {
     
-    controler.addMessage(req.body.chat, req.body.user, req.body.message)
+    controler.addMessage(req.body.chat, req.body.user, req.body.message, req.file)
     .then( fullMessage => response.success(req, res, fullMessage, 201) )
     .catch( error => response.error(req, res, 'Informacion invalida', 400, 'Error en el controler'));
 
