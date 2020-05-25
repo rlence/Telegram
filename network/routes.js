@@ -1,5 +1,6 @@
 const express = require('express');
 const menssage = require('../components/messages/network');
+const user = require('../components/user/network');
 
 /** aqui centralizaremos todas nuestras rutas  */
 const routes = function (server){
@@ -8,7 +9,8 @@ const routes = function (server){
      * al poner el /message, todos las rutas que estemos llamando tendran por delante
      * el /message/ cualquier cosa que pongamos
     */
-    server.use('/message', menssage )
+    server.use('/message', menssage );
+    server.use('/user', user);
 }
 
 
