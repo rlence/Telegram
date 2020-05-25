@@ -5,6 +5,12 @@ const router = express.Router();
 const response = require('../../network/response');
 const controler = require('./controler');
 
+router.get('/', ( req, res )=> {
+    controler.listUser()
+    .then( data => response.success(req, res, data, 200))
+    .catch( err => response.error(req, res, 'Internat error', 500, err))
+});
+
 router.post('/', (req, res) => {
 
     controler.addUser(req.body.name)

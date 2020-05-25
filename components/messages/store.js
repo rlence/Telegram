@@ -5,15 +5,27 @@ function addMessage(message){
     myMessage.save();
 }
 
-async function getMessage(filterUser){
-    let filter = {}
-    if(filterUser !== null){
-        //filtrando usuarios en mongoDB
-        filter = { user: filterUser };
+function getMessage(filterUser){
 
-    }
-    const messages = await Model.find(filter);
-    return messages;
+    return new Promise( (resolve, reject) => {
+        let filter = {}
+        if(filterUser !== null){
+            //filtrando usuarios en mongoDB
+            filter = { user: filterUser };
+
+        }
+        const messages =  Model.find(filter)
+        .populate('user') //esto nos sirve para unir el id del usuario con los mensajes
+        .exec((error, populate) => { //con esto ejectuamos el populate
+            if(error){
+                reject(error)
+                return false
+            }
+
+            resolve(populate)
+        })
+    })
+    
 }
 
 async function updateText(id, message){

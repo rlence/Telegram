@@ -14,7 +14,7 @@ router.get('/', (req,res)=>{
 
 router.post('/', (req, res) => {
     
-    controler.addMessage(req.body.user, req.body.message)
+    controler.addMessage(req.body.chat, req.body.user, req.body.message)
     .then( fullMessage => response.success(req, res, fullMessage, 201) )
     .catch( error => response.error(req, res, 'Informacion invalida', 400, 'Error en el controler'));
 

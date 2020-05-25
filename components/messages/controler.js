@@ -1,6 +1,6 @@
 const store = require('./store');
 
-function addMessage( user, message){
+function addMessage(chat, user, message){
     //..
     return new Promise( (resolve, reject) => {
         if(!user || !message){
@@ -10,6 +10,7 @@ function addMessage( user, message){
         }
 
         const fullMessages = {
+            chat,
             user,
             message,
             date:new Date(),

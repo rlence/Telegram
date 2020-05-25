@@ -12,6 +12,13 @@ function addUser(name){
     return sotre.add(user);
 }
 
+function listUser(){
+
+    return sotre.list();
+
+}
+
 module.exports = {
     addUser,
+    listUser
 }
