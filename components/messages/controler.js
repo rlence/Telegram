@@ -1,4 +1,5 @@
 const store = require('./store');
+const socket = require('../../socket').socket;
 
 function addMessage(chat, user, message, file){
     //..
@@ -22,6 +23,10 @@ function addMessage(chat, user, message, file){
             file: fileUrl
         }
         store.add(fullMessages)
+
+        socket.io.emit('message', fullMessages)
+
+
         resolve(fullMessages)
     })
    
