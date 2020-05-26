@@ -4,6 +4,8 @@ const express = require('express');
 const app = express();
 const server = require('http').Server(app)
 
+const config = require('./config');
+
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const socket = require('./socket');
@@ -13,7 +15,7 @@ const db = require('./db');
 const router = require('./network/routes');
 
 //nos conectamos con la base de datos a travez de esa url
-db('mongodb+srv://de_user_test:useradmin1992madridvalence@cluster0-ezd9q.mongodb.net/test');
+db(config.dbUrl);
 
 app.use(cors());
 
@@ -23,9 +25,9 @@ app.use(bodyParser.json());
 socket.connect(server);
 /** de esta manera llamamos al archivo routesy el pasamos el server como parametro */
 router(app);
-app.use('/app', express.static('public'));
+app.use(config.publicRoute, express.static('public'));
 
 //servidr levantado y escuchando
-server.listen(8080, ()=>{
-    console.log('Escuchando en el puerto 8080');
+server.listen(config.port, ()=>{
+    console.log(`Listen in ${config.host}:${config.port}`);
 });
